@@ -1,0 +1,72 @@
+<?php
+ /**
+  * Created by Zbigglord
+  * Date: 2017-04-14
+  * Time: 08:56
+  */
+?>
+<?php
+ $id = $this->getRequest()->getParam('id');
+ $collection = $this->getCollection();
+?>
+<div class="page-header-holder">
+ <h3 class="main-header-h3">Aktualności</h3>
+</div>
+<div class="product-view">
+ <?php if(isset($id)): ?>
+  <?php $article = Hellux_News_Model_Resource_News::getArticleById($id);?>
+ <?php foreach($article as $news):  ?>
+  <div class="news-article" style="border: 0;">
+   <div class="row no-margin">
+    <div class="col-lg-8">
+     <p class="news-title"><?=$news['news_title'] ?></p>
+     <p class="news-date">DODANO: <?=$news['news_added_date'] ?></p>
+     <p class="news-content"><?= $news['news_content'] ?></p>
+    </div>
+    <div class="col-lg-4">
+     <?php if($news['news_thumbnail'] != ''): ?>
+      <img class="img-responsive news-thumbnail" src="<?=$news['news_thumbnail']?>" />
+     <?php endif; ?>
+    </div>
+   </div>
+  </div>
+  <?php endforeach; ?>
+ <?php else: ?>
+
+ <?php foreach($collection as $article):  ?>
+  <?php if($article['news_archive'] != 1): ?>
+  <div class="news-article">
+ <div class="row no-margin">
+  <div class="col-lg-8">
+    <p class="news-title"><?=$article['news_title'] ?></p>
+    <p class="news-date">DODANO: <?=$article['news_added_date'] ?></p>
+    <p class="news-content">
+     <?php if($article['news_short_content'] != ''): ?>
+      <?= substr($article['news_short_content'],0,200)?><span class="news-go-furher">[...]</span>
+     <?php else: ?>
+      <?=substr($article['news_content'],0,200) ?><span class="news-go-furher">[...]</span>
+     <?php endif; ?>
+    </>
+   <p class="news-button-container">
+   <a href="<?=Mage::getBaseUrl()?>news?id=<?=$article['news_id'] ?>" class="news-readmore" >Czytaj więcej</a>
+   </p>
+  </div>
+  <div class="col-lg-4">
+   <?php if($article['news_thumbnail'] != ''): ?>
+    <img class="img-responsive news-thumbnail" src="<?=$article['news_thumbnail']?>" />
+   <?php endif; ?>
+  </div>
+   </div>
+ </div>
+   <?php endif; ?><!-- endif for check if archive -->
+ <?php endforeach; ?>
+  <?php
+
+  ?>
+ <?php endif; ?>
+</div>
+<?php if(isset($id)): ?>
+ <div class="news-back"><a href="<?=Mage::getBaseUrl()?>" class="news-back-link"><<< POWRÓT</div>
+<?php else: ?>
+ <?php echo $this->getPagerHtml(); ?>
+<?php endif; ?>

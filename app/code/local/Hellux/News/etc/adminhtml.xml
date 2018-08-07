@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+<menu>
+	<hellux translate="title" module="hellux_news">
+		<title>Hellux</title>
+		<sort_order>10</sort_order>
+		<!-- action>allegro/controller</action -->
+		<children>
+			<news translate="title">
+				<title>News</title>
+				<sort_order>20</sort_order>
+				<children>
+					<index translate="title">
+						<title>Menage</title>
+						<action>adminhtml/list</action>
+						<sort_order>10</sort_order>
+					</index>
+				</children>
+			</news>
+		</children>
+	</hellux>
+</menu>
+<acl><!--  You may want to deny access to some of pages for certain groups of backend users -->
+	<!--  Go to admin menu SYSTEM/PERMISSIONS/ROLES and go from there -->
+
+</acl>
+</config>
